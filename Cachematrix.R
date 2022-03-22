@@ -23,4 +23,21 @@ makeCacheMatrix<- function(x=matrix()){
 
 ##Cachesolve created to compute the inverse of the matrix
 
-  
+cachesolve<- function(x,...) #gets cache data
+{
+  inv<-x$getinv()
+  if(!is.null(inv)){
+                   message("getting cached data!")
+                  return(inv)       #returns inverse value
+  }
+  data<-x$get()
+  inv<-solve(data,...)
+  x$setinv(inv)
+  inv    
+}
+
+f<-makeCacheMatrix(matrix(1:8,2,4))
+f$get()
+f$getinv()  
+
+cachesolve(f)
